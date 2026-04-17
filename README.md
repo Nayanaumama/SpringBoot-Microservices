@@ -1,4 +1,7 @@
 Comment for JWT token
+
+
+
 Add the Security dependency in pom.xml
 As soon as you add Spring security will give the Basic default username and password 
 to customize it we need to config the SecurityFilter chain. Create bean in config class annote with @EnableWebSecurity and 
