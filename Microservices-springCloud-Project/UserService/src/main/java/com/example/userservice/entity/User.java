@@ -1,10 +1,10 @@
 package com.example.userservice.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,4 +23,7 @@ public class User {
            private String email;
            @Column(name = "about")
            private String about;
+           @Transient//not to store in database .Jpa will ignore this feild
+           private List<Rating> Rating=new ArrayList<>();
+
 }

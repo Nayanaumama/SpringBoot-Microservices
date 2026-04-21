@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     @Override
     public User saveUser(User user) {
-        //to generate unique id
+        //to generate unique random id globally . Good for microservices .So no id dupication in entire server around globals
         UUID uuid = UUID.randomUUID();
         user.setUserId(uuid.toString());
         return userRepository.save(user);
