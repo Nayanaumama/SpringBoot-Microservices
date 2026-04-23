@@ -26,4 +26,6 @@ public class User {
            @Transient//not to store in database .Jpa will ignore this feild
            private List<Rating> Rating=new ArrayList<>();
 
+
+
 }
