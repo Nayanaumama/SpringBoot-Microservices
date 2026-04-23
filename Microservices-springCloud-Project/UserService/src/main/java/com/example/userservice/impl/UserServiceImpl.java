@@ -4,6 +4,8 @@ import com.example.userservice.entity.Hotel;
 import com.example.userservice.entity.Rating;
 import com.example.userservice.entity.User;
 import com.example.userservice.exception.ResourceNotFoundException;
+import com.example.userservice.externalService.HotelService;
+import com.example.userservice.externalService.RatingService;
 import com.example.userservice.repo.UserRepository;
 import com.example.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    HotelService hotelService;
+    @Autowired
+    RatingService ratingService;
 
     @Override
     public User saveUser(User user) {
@@ -39,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public User getUser(String userId) {
         //lets get the rating for this user from the rating service using http API communication
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User with given Id is not present" + " " + userId));
-        String url = "http://localhost:8087/rate/userId?userId=" + userId;
+        String url = "http://RATESERVICE/rate/userId?userId=" + userId;
 
         ResponseEntity<List<Rating>> response = restTemplate.exchange(
                 url,
@@ -48,13 +56,11 @@ public class UserServiceImpl implements UserService {
                 new ParameterizedTypeReference<List<Rating>>() {
                 }
         );
-
         List<Rating> ratingForUser = response.getBody();
+        //using feign client to get hotel details for the userId
         List<Rating> rating = ratingForUser.stream().map(rating1 -> {
-            String url2 = "http://localhost:8084/hotel/getHotelById?hotelId=" + rating1.getHotelId();
-            ResponseEntity<Hotel> hotel = restTemplate.getForEntity(url2, Hotel.class);
-            Hotel hotel1 = hotel.getBody();
-            rating1.setHotel(hotel1);
+            Hotel hotel = hotelService.getHotelById(rating1.getHotelId());
+            rating1.setHotel(hotel);
             return rating1;
         }).collect(Collectors.toList());
         user.setRating(ratingForUser);
@@ -63,12 +69,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> list1 = userRepository.findAll();
-//       String url="http://localhost:8087/rate/all";
-//       ArrayList<Rating> ratingForUSer= restTemplate.getForObject(url, ArrayList.class);
-//      String userId= ratingForUSer.get(3).getUserId();
-//       for( User user:list1)
-//           user.setRating(userId);
-        return list1;
+        List<User> users = userRepository.findAll();
+//Feign client usage
+        List<Rating> ratings = ratingService.getAllRatings();
+
+        for (Rating rating : ratings) {
+            Hotel hotel = hotelService.getHotelById(rating.getHotelId());
+            rating.setHotel(hotel);
+        }
+
+        Map<String, List<Rating>> ratingsByUserId = ratings.stream()
+                .collect(Collectors.groupingBy(Rating::getUserId));
+
+        for (User user : users) {
+            user.setRating(ratingsByUserId.getOrDefault(user.getUserId(), new ArrayList<>()));
+        }
+
+        return users;
     }
 }
