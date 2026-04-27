@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: GatewayEntry
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+          - id: UserService
+            uri: lb://USERSERVICE
+            predicates:
+              - Path=/users/**
+
+          - id: HotelService
+            uri: lb://HOTELSERVICE
+            predicates:
+              - Path=/hotel/**
+
+          - id: RateService
+            uri: lb://RATESERVICE
+            predicates:
+              - Path=/rate/**
+
+server:
+  port: 8089
+
+
+  logging:
+    level:
+      org.springframework.cloud.gateway: DEBUG
+      org.springframework.cloud.gateway.server.mvc: DEBUG
+      org.springframework.web: DEBUG
+      org.springframework.cloud.loadbalancer: DEBUG
+      com.netflix.discovery: INFO
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} - %level - %logger{36} - %msg%n"
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+        defaultZone:
+             http://localhost:8761/eureka/
