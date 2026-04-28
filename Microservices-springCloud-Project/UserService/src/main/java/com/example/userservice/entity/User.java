@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Table(name = "user", schema = "userService")
+@Builder
 public class User {
            @Id
            @Column(name = "user_id")
