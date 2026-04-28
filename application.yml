@@ -1,6 +1,6 @@
-spring:
-  application:
-    name: application-default
+# spring:
+#   application:
+#     name: application-default
 
 eureka:
   client:
