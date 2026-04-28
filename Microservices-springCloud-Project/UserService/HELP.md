@@ -13,3 +13,6 @@ in the same controller wher you call the API
 
 use the actuator to check the health status and to know how many request is passed or failed all the needed information
 
+2. here Also added the Retry that means before calling the fallback method retrried for 3 timeas to reach the service and if its not
+getting response in 3 times and then return the fall back method that service is down 
+3. 
