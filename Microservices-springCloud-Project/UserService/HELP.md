@@ -1,0 +1,15 @@
+Here I used the circuit  Breaker 
+Circuit Breaker pattern is from resilleince 4j .Which is used to indicate if any services requesting for is down for some reason
+.
+There are 3 status in this 
+closed ,open and half-open
+
+if the services are up and running status is closed 
+if any service is down ,it tries maximum no of time which is configured and changes the status to open if the service is down for all the time . ANd then set the waiting threshold time in the 
+open status .after the threshold time if the request comes and if the request is agin failed more than 50 % or any threashold percent we configure ,if the failure rate is more ,then it will be again open ,or if the success rate is more then the circuit is closed again .means its successful
+
+here we can give the name to the circuit breaker @circuitBreaker(name=""userratehotel ") and also define the call back method 
+in the same controller wher you call the API 
+
+use the actuator to check the health status and to know how many request is passed or failed all the needed information
+
