@@ -1,4 +1,4 @@
-Here I used the circuit  Breaker 
+1.Here I used the circuit  Breaker 
 Circuit Breaker pattern is from resilleince 4j .Which is used to indicate if any services requesting for is down for some reason
 .
 There are 3 status in this 
@@ -15,4 +15,10 @@ use the actuator to check the health status and to know how many request is pass
 
 2. here Also added the Retry that means before calling the fallback method retrried for 3 timeas to reach the service and if its not
 getting response in 3 times and then return the fall back method that service is down 
-3. 
+
+3. Here also used Rate Limiter .
+rate Limiter is pattern which will help to increase the services security and performance.
+we are limiting the no of hit to the server by using resilience 4j rate Limiter.
+That way we are stopping our services from DOS attack (like thousands of request at a time ) and also preventing the system from crashing with access request than its capacity 
+@RateLimiter(name="",fallBackMethod="")
+then do the required configuration in application.properties
