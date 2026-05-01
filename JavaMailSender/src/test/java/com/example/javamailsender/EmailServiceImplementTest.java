@@ -17,12 +17,12 @@ public class EmailServiceImplementTest {
     @Test
     public void sendEmailTest()
     {
-        emailService.sendEmail("nbhagwat02@gmail.com","Testing the java mail sender","This is a test mail");
+        emailService.sendEmail("exampleid","Testing the java mail sender","This is a test mail");
     }
 
     @Test
     public void sendEmailWithHtml()
     {
-        emailService.sendEmailWithHtml("nbhagwat02@gmail.com","Testing the java mail sender","<h1><This is a test mail></h1>");
+        emailService.sendEmailWithHtml("exampleid","Testing the java mail sender","<h1><This is a test mail></h1>");
     }
 }
