@@ -17,3 +17,17 @@ claims and Keys
 Then returning the token in the login request 
 then reusing the token as Beare token (Authorization) for the next request 
 then validating the token if the token is valid getting acces to the resource.
+
+In the config class create job,masterstep(workerstepstep,partiotion,taskexecutor,),workerstep(jobrepository,transactionmananger,reader,processor,writer).
+
+need to create bean or class with spring annotation 
+create bean for partiition and taskExecutor 
+
+when you make feild final it will ask for constructor injection because final field should get value during object creation , feild injection is
+not valid in that case 
+
+Used JPQL query and used entityManager to create query . CreateQuery ()
+If its native query teh CreateNAtiveQuery()
+
+in the jpql query we use java class entity in our query for table and feild nme for column .
+

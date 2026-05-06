@@ -93,6 +93,32 @@ SQL Time-LocalTime
 these are from java.time packages.
 
 
+Spring Batch doesnot use the repository layer like normal rest API crud opertaion 
+@Query(""Select c from customer c")
+BEcause if all the data is read once it wll lead to memoery issue 
+
+So Sprinbatch support entityMAnager to create query and updatequery and so on JPA processes
+entityManager.createQuery(")
+
+
+
+Used partiooner to implent in Partitonclass which gives method partiotion of return type map with Stirng and ExecutionContext
+
+ExecutionContext is special Spring batch class there we can store data in the form of key value like map ,its not Map directly its special class 
+
+It has so many methods to put data in it 
+
+Then passing this execution context value min id and max id to reader with 
+
+@Value("#{stepExecutionContext['minId']}") Long minId,
+@Value("#{stepExecutionContext['maxId']}") Long maxId,
+@Value("${app.batch.page-size}") int pageSize)
+
+@StepScope 
+this is very important when you inject value during step execution and it changes for every steps 
+If we dont use @StepScope . When the application starts spring tries to inject this beans ,But it did not find any min id and max id and throw the error 
+
+Here @Value should be spering application value not lombok value .
 
 
 
