@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Setter
@@ -36,7 +37,8 @@ public class CustomerRaw {
     private String processedFlag;
 
     @Column(name = "processed_at")
-    private LocalDateTime processedAt;
+    private OffsetDateTime
+            processedAt;
 
     @Column(name = "processing_run_id")
     private String processingRunId;

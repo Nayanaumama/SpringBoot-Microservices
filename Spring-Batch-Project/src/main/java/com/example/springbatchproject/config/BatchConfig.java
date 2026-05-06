@@ -12,6 +12,7 @@ import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.item.database.JpaItemWriter;
 import org.springframework.batch.infrastructure.item.database.JpaPagingItemReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.batch.autoconfigure.BatchProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,10 @@ import org.springframework.transaction.TransactionManager;
 @Configuration
 public class BatchConfig {
 
-//    @Bean
+    @Value("${app.batch.chunk-size}")
+    private int chunkSize;
+
+    //    @Bean
 //    public PlatformTransactionManager transactionManager(EntityManagerFactory    entityManagerFactory) {
 //        return new JpaTransactionManager(entityManagerFactory);
 //    }
@@ -41,7 +45,7 @@ public Step customerProcessingStep(JobRepository jobRepository,PlatformTransacti
                                    CustomerWriter customerWriter)
 {
     return new StepBuilder("customerProcessingStep", jobRepository)
-            .<CustomerRaw, CustomerProcessed>chunk(2)
+            .<CustomerRaw, CustomerProcessed>chunk(chunkSize)
             .transactionManager(transactionManager)
             .reader(customerReader)
             .processor(customerProcessor)

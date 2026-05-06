@@ -86,3 +86,13 @@ Java Integer     <-> SQL INT / INTEGER
 Java BigDecimal  <-> SQL DECIMAL / NUMERIC
 Java BigInteger  <-> SQL very large NUMERIC
 
+TIMESTAMP WITH TIME ZONE-OffsetDateTime
+TIMESTAMP WITHOUT TIMEZONE-LocalDateTime
+SQL DATE-LocalDAte
+SQL Time-LocalTime
+these are from java.time packages.
+
+
+
+
+

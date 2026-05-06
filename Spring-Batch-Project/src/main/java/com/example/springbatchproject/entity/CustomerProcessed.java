@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "customer_processed")
@@ -39,7 +40,8 @@ public class CustomerProcessed {
     private String processedStatus;
 
     @Column(name="created_at")
-    private LocalDateTime createdAt;
+    private OffsetDateTime
+            createdAt;
 
 }
 
