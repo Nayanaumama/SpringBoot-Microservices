@@ -37,8 +37,7 @@ public class CustomerRaw {
     private String processedFlag;
 
     @Column(name = "processed_at")
-    private OffsetDateTime
-            processedAt;
+    private OffsetDateTime processedAt;
 
     @Column(name = "processing_run_id")
     private String processingRunId;
