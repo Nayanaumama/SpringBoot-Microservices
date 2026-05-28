@@ -448,6 +448,27 @@ drop index index_employee_salry;
 -- > **Durability ensures that committed data is not lost.**
 
 
+-- normalization in database sql
+-- 1.Normalization is the process or organizing the data in the database
+--
+-- normaized data is reduced redundency ,reduced dependencies and avoid insertion ,update ,delete anomolies
+--  S basically decomposing large ,complex data table into samll, structured tables using relationship between tables like primary key and foreign key
 
+-- -- rules
+-- 1.First Normal Form (1NF) – Ensure atomic values (no repeating groups or arrays) and unique rows.
+-- 2.Second Normal Form (2NF) – Be in 1NF and remove partial dependencies (non-key attributes must depend on the whole primary key).
+-- 3.Third Normal Form (3NF) – Be in 2NF and remove transitive dependencies (non-key attributes should not depend on other non-key attributes).
+-- Fourth Normal Form (4NF) – Remove multi-valued dependencies.
+-- Fifth Normal Form (5NF) – Eliminate join dependencies for complete decomposition .
 
+-- Constarints in sql
+--
+-- In SQL, constraints are rules applied to columns or tables to ensure the accuracy, validity, and integrity of the data stored in a database. They prevent invalid data from being inserted, updated, or deleted.
+--
+-- Constraints can be defined when creating a table () or added laterCREATE TABLE (ALTER TABLE)
 
+-- NIQUE	Ensures all values in a column are unique (no duplicates). Allows one unless combined with .NULLNOT NULL	email VARCHAR(100) UNIQUE
+-- PRIMARY KEY	Uniquely identifies each row in a table. Combines + . Only one per table.NOT NULLUNIQUE	id INT PRIMARY KEY
+-- FOREIGN KEY	Enforces referential integrity by linking a column to a primary key in another table.	FOREIGN KEY (dept_id) REFERENCES departments(id)
+-- CHECK	Ensures values in a column meet a specific condition.	age INT CHECK (age >= 18)
+-- DEFAULT	Assigns a default value if none is provided during insert.
