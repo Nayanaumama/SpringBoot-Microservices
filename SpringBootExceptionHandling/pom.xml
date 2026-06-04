@@ -2,6 +2,60 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+<!--    MAven Build lifcycle
+ !validate
+ compile
+ test
+ package
+ verify
+ install
+ deploy-->
+<!--maven local repository is users/nbhag/.m2/repository-->
+<!--maven search for local repository first if not find then remote mavencentral repository
+if we configure custome repostory then it gets from custom repositry
+Once it finds in the remote repo downloads and stores in local repsotory-->
+<!--    MAven clean cycle-->
+<!--    clean removes the previous build -->
+<!--    It has three phases
+pre clean
+clean
+post  clean
+there are commands to execute also we can see gui maven lifecycle-->
+<!-- there is also site to create documentary for the project using maven -->
+<!-- maven can handle transitive dependency like i have added one dependency and it is dependening
+on the other dependecy -->
+    <!--Most of the organization uses its own remote repository that we can configure in pom.xml for the particular project
+    or we can also add in mavens setting.xml(which should be in m2 folder if not we need to create it-->
+<!-- if no custom repositories found then maven uses maven central reposiroty to download the dependency and othe rplugins -->
+<!--  in the multi module project you create project with pom and then create the module for that
+project .every module has its own pom.xml...now add this modules under pom .xml of parent project in the
+under the modules tag
+And also use <packaging>pom</packaging>
+And in the child module use the parent as main project and use the packaging jar
+-->
+
+<!--parent project is the project which has <packaging>pom</packaging>-->
+<!--    t does not create a runnable `.jar`. Its job is to provide common things to child projects, such as:
+- dependency versions
+- common dependencies
+- Java version
+- plugin versions
+- Spring Boot version
+- project properties
+- build configurati
+-->
+<!--   Suppose in the parent project if we put dependecy under dependencies then every child project getst hese dependecy
+Sometiems that is unwanted
+So better approch is to put under dependency management . So that child needs to use that dependency under dependecies tag
+but version is controlled by parent .-->
+<!--    **BOM** means **Bill of Materials**.
+In Maven, a BOM is a special POM file whose main job is to define compatible dependency versions.
+Think of BOM like a **version catalog**
+-->
+<!--    Then we need to use the bom in the project in the dependency management then we so for those dependecyies we dont need ti use the versions-->
+
+
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
